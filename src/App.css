@@ -24,6 +24,18 @@
   color: white;
 }
 
+.App-controls {
+  position: absolute;
+  top: 0;
+  right: 50%;
+  margin: 20px;
+}
+
+.circle-slider {
+  width: 200px;
+  margin-bottom: 40px;
+}
+
 .App-link {
   color: #61dafb;
 }
