@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Circle } from 'react-shapes';
+import store from "./store";
 
 import { Slider } from '@rmwc/slider';
 import '@material/slider/dist/mdc.slider.css';
 
 import './App.css';
 
-function App() {
-  const [radius, setRadius] = useState(150)
+function App({ state }: { state: any }) {
+  const { radius } = state
 
   return (
     <div className="App">
@@ -18,7 +19,7 @@ function App() {
             onInput={(event) => {
               const newRadius = event.detail.value
 
-              setRadius(newRadius)
+              store.dispatch({ type: 'SET_CIRCLE_RADIUS', payload: newRadius })
             }}
           />
         </div>
