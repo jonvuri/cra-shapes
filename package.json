@@ -13,6 +13,7 @@
     "@types/react-dom": "^16.9.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-error-boundary": "^3.0.0",
     "react-scripts": "3.4.1",
     "react-shapes": "^0.1.0",
     "redux": "^4.0.5",
