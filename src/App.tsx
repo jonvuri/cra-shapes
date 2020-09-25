@@ -14,6 +14,9 @@ type Pokemon = {
 function App() {
   const [input, setInput] = useState("")
   const [pokemon, setPokemon] = useState<Pokemon | null>(null)
+
+  // Request data
+  const [pending, setPending] = useState(false)
   const [error, setError] = useState(false)
 
   const handleInput: React.FormEventHandler<HTMLInputElement> = (event) => {
@@ -24,7 +27,9 @@ function App() {
     // Take current 'input' and submit to API
     setError(false)
     
+    setPending(true)
     const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${input}`)
+    setPending(false)
 
     if (pokemonResponse.status === 404) {
       setError(true)
@@ -43,20 +48,28 @@ function App() {
           <button onClick={handleSubmit}>Who's that Pokemon?</button>
         </div>
         <div className="App-pokemon-display">
-          {error ? (
-            <div style={{color:"red"}}>Could not find a Pokemon with that name</div>
-          ) : pokemon && (
-            <>
-              <div>
-                Name:
-                {pokemon?.name}
-              </div>
-              <div>
-                #{pokemon?.id}
-              </div>
-              <img src={pokemon?.sprites.front_default} />
-              <img src={pokemon?.sprites.front_shiny} />
-            </>
+          {pending ? (
+            <div className="spinner-box">
+              <div className="circle-border">
+                <div className="circle-core" />
+              </div>  
+            </div>
+          ) : (
+            error ? (
+              <div style={{color:"red"}}>Could not find a Pokemon with that name</div>
+            ) : pokemon && (
+              <>
+                <div>
+                  Name:
+                  {pokemon?.name}
+                </div>
+                <div>
+                  #{pokemon?.id}
+                </div>
+                <img src={pokemon?.sprites.front_default} />
+                <img src={pokemon?.sprites.front_shiny} />
+              </>
+            )
           )}
         </div>
       </header>
