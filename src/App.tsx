@@ -24,29 +24,47 @@ function App() {
   }
 
   const handleSubmit = async () => {
-    // Take current 'input' and submit to API
-    setError(false)
-    
-    setPending(true)
-    const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${input}`)
-    setPending(false)
-
-    if (pokemonResponse.status === 404) {
-      setError(true)
-    } else {
-      const pokemonJsObj = await pokemonResponse.json()
+    if (input) {
+      // Take current 'input' and submit to API
+      setError(false)
       
-      setPokemon(pokemonJsObj)
+      setPending(true)
+      const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${input}`)
+      setPending(false)
+
+      if (pokemonResponse.status === 404) {
+        setError(true)
+      } else {
+        const pokemonJsObj = await pokemonResponse.json()
+        
+        setPokemon(pokemonJsObj)
+      }
     }
   }
+
+  // Form submit event handler:
+  const handleFormSubmit: React.FormEventHandler = (event) => {
+    event.preventDefault()
+
+    handleSubmit()
+  }
+
+  // // Manual keyboard event handler:
+  // const handleKeyPress: React.KeyboardEventHandler = (event) => {
+  //   const { key } = event
+
+  //   if (key === "Enter") {
+  //     handleSubmit()
+  //   }
+  // }
 
   return (
     <div className="App">
       <header className="App-header">
-        <div className="App-controls">
+        <form className="App-controls" onSubmit={handleFormSubmit}>
           <input type="text" onChange={handleInput} value={input} />
           <button onClick={handleSubmit}>Who's that Pokemon?</button>
-        </div>
+        </form>
         <div className="App-pokemon-display">
           {pending ? (
             <div className="spinner-box">
