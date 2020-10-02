@@ -25,15 +25,24 @@
 }
 
 .App-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  top: 0;
-  right: 50%;
-  margin: 20px;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 50px;
+}
+
+.App-control-value {
+  width: 100px;
 }
 
 .circle-slider {
+  position: relative;
   width: 200px;
-  margin-bottom: 40px;
+  margin: 0 20px;
 }
 
 .App-link {
